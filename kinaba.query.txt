@@ -1,0 +1,23 @@
+GET _sql?format=csv
+{
+  "query": """
+    select curConns
+    from "network_*"
+    where pool_id = 'ticket.interpark.com_80'
+    and (
+      "@timestamp" between NOW() - INTERVAL '1 1' DAYS TO HOURS and NOW() - INTERVAL '0 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '2 1' DAYS TO HOURS and NOW() - INTERVAL '1 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '3 1' DAYS TO HOURS and NOW() - INTERVAL '2 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '4 1' DAYS TO HOURS and NOW() - INTERVAL '3 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '5 1' DAYS TO HOURS and NOW() - INTERVAL '4 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '6 1' DAYS TO HOURS and NOW() - INTERVAL '5 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '7 1' DAYS TO HOURS and NOW() - INTERVAL '6 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '8 1' DAYS TO HOURS and NOW() - INTERVAL '7 23' DAYS TO HOURS OR
+      "@timestamp" between NOW() - INTERVAL '9 1' DAYS TO HOURS and NOW() - INTERVAL '8 23' DAYS TO HOURS 
+      
+      )
+      
+    order by "@timestamp" 
+    limit 20000
+  """
+}
